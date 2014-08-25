@@ -1,18 +1,19 @@
 //HydroPony 25/10/14
 //Building for Mega2560
 
-<<<<<<< HEAD
+//<<<<<<< HEAD
 // --- Global Variables ---
-int countTemp = 3; // Only 3 sensors for starters, done this way to make it flexible in the loop below
+const int countTemp = 4; // Only 3 sensors for starters, done this way to make it flexible in the loop below
 int pinTemp [countTemp] = {15,16,17,18}; //pins for sensors
 int sensorTemp [countTemp]; //temp sensor readings
 int sensorTimer = 10; //ms
 int count = 0;
 
 //Temp sensor code and tutorial  https://learn.adafruit.com/tmp36-temperature-sensor
-=======
+//=======
 //including ethernet library
 #include <Ethernet.h>
+#include <SPI.h>
 #include <EthernetUdp.h> // adds UPD support
 //Temp sensor code and tutorial  https://learn.adafruit.com/tmp36-temperature-sensor
 
@@ -31,7 +32,7 @@ IPAddress subnet(255, 255, 255, 0);
 unsigned int localPort = 8888; 
 // An EthernetUDP instance to let us send and receive packets over UDP
 EthernetUDP Udp;
->>>>>>> origin/master
+//>>>>>>> origin/master
 
 void setup() {
   //Start the serial interface (this will be removed once we've added the network shield)
