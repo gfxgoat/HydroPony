@@ -3,8 +3,8 @@
 
 //Temp sensor code and tutorial  https://learn.adafruit.com/tmp36-temperature-sensor
 
-//TMP36 Attached to Pin 15 - this is for reading the temp in the fish pond
-int tempSen1Pin = 15;
+//TMP36 Attached to Pin XX - this is for reading the temp in the fish pond
+int tempSen1Pin = 0;
 
 
 void setup() {
