@@ -1,15 +1,16 @@
 //HydroPony 25/10/14
 //Building for Mega2560
 
+// --- Global Variables ---
+int countTemp = 3; // Only 3 sensors for starters, done this way to make it flexible in the loop below
+int pinTemp |countTemp| = {15,16,17,18}; //pins for sensors
+int sensorTemp |countTemp|; //temp sensor readings
+int sensorTimer = 10; //ms
+int count = 0;
+
 //Temp sensor code and tutorial  https://learn.adafruit.com/tmp36-temperature-sensor
 
-//TMP36 Attached to Pin 15 - this is for reading the temp in the fish pond
-int tempSen1Pin = 15;
-
-
 void setup() {
-  // put your setup code here, to run once:
-  
   //Start the serial interface (this will be removed once we've added the network shield)
   Serial.begin(9600);
 
@@ -17,28 +18,29 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-  // test import
+  /*
+  --- Check ---
+  Check Pumps
+  Check Overflow sensors
+  Check PH sensors
+  Check ??? sensors
+  */
+  checkTemp();
+  /*
   
-  //read the temp from the sensor on pin 15 we need to do this twice and discard the first reading see notes below ( from adafruit guide )
-   int tempreading1 = analogRead(tempSen1Pin); 
- //  small pause  
- delay(10); //10ms delay
- //this is the reading we are going to keep
-   int tempreading1 = analogRead(tempSen1Pin); 
-   
-/*Problems you may encounter with multiple sensors:
-If, when adding more sensors, you find that the temperature is inconsistant, 
-this indicates that the sensors are interfering with each other when switching
-the analog reading circuit from one pin to the other. 
-You can fix this by doing two delayed readings and tossing out the first one */
+  --- Process ---
   
-// converting that reading to voltage, for 3.3v arduino use 3.3
- float voltage = reading * 5.0;
- voltage /= 1024.0; 
+  */
   
-// now print out the temperature
- float temperatureC = (voltage - 0.5) * 100 ;  //converting from 10 mv per degree wit 500 mV offset 
+
  Serial.print(temperatureC); Serial.println(" degrees C"); //to degrees ((voltage - 500mV) times 100)
   
  delay(1000);  // debug delay so we have time to read the serial feed
 }
+
+void checkTemp () {
+  for (count=0;count=countTemp;count++) {
+   sensorTemp|count| = analogRead(pinTemp|countTemp|);//first sensor read - dump this as per adafruit guide 
+   delay(sensorTimer);
+   sensorTemp|count| = ((analogRead(pinTemp|countTemp|) * 5) / 1024) * 100  ;//second sensor read - keep.  change to 3.3 for 3.3v system. Converting from 10 mv per degree wit 500 mV offset
+  }
